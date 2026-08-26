@@ -1,5 +1,6 @@
 #include <string>
 #include <cstddef>
+#include <utility>
 
 /**
  * Implement a single threaded HashMap using (string, int) as (key, value). 
