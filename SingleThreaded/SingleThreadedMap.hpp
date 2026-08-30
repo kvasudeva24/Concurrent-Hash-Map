@@ -10,6 +10,16 @@
  * Feel free to implement as you see fit -- have fun!
  */
 
+struct Node {
+    std::string key;
+    int value;
+
+    Node* next;
+
+    Node(Node* ptr) : key(ptr->key), value(ptr->value) {};
+
+};
+
 class HashMap {
 
 /**
@@ -21,8 +31,24 @@ class HashMap {
 
 private:
 
+    Node** mData = nullptr;
+    std::size_t mCapacity = 0;
+    std::size_t mSize = 0;
+    
+    static constexpr double loadFactor = 0.7;
 
+    static std::size_t hashFunction(const std::string& str) {
+        std::size_t hash = 2166136261U;
+        for (char c : str) {
+            hash ^= static_cast<std::size_t>(static_cast<unsigned char>(c));
+            hash *= 16777619U;
+        }
+        return hash;
+    }
 
+    //helper functions
+    void destroy();
+    void copyData(const HashMap& other);
 
 /**
  * These are the APIs you need to support. The test suite will test against
