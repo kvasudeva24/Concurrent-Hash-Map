@@ -16,7 +16,8 @@ struct Node {
 
     Node* next;
 
-    Node(Node* ptr) : key(ptr->key), value(ptr->value) {};
+    Node(Node* ptr) : key(ptr->key), value(ptr->value), next(nullptr) {};
+    Node(std::string k, int v) : key(k), value(v) {};
 
 };
 
@@ -34,6 +35,8 @@ private:
     Node** mData = nullptr;
     std::size_t mCapacity = 0;
     std::size_t mSize = 0;
+
+    std::size_t mBuckets = 0;
     
     static constexpr double loadFactor = 0.7;
 
@@ -49,6 +52,7 @@ private:
     //helper functions
     void destroy();
     void copyData(const HashMap& other);
+    void resize();
 
 /**
  * These are the APIs you need to support. The test suite will test against
@@ -91,7 +95,7 @@ public:
     bool contains(const std::string& key) const;
 
     // returns nullptr if key not found, otherwise pointer to the stored value
-    int* find(const std::string& key);
+    int* find(const std::string& key) const;
 
     // map operator[] access — inserts default value if missing
     int& operator[](const std::string& key);
